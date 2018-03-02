@@ -1,4 +1,4 @@
-# Start-DscConfiguration -Path "Z:\Script\DSC\DSC-Basic-Configuration\BasicConfiguration" -Verbose -Credential (Get-Credential)
+# Start-DscConfiguration -Path "Z:\Script\DSC-Configuration\BasicConfiguration" -Verbose -Credential (Get-Credential)
 
 Configuration BasicConfiguration {
 
@@ -24,19 +24,20 @@ Configuration BasicConfiguration {
             # Create Firewall rules
             xFirewall AllowRDP
             {
-            Name = 'DSC Remote Desktop Admin Connections'
-            Group = 'Remote Desktop'
-            Ensure = 'Present'
-            Enabled = "True"
-            Action = 'Allow'
-            Profile = 'Private'
+                Name = 'DSC Remote Desktop Admin Connections'
+                Group = 'Remote Desktop'
+                Ensure = 'Present'
+                Enabled = "True"
+                Action = 'Allow'
+                Profile = 'Private'
             }
 
             # Administrateur account in RDP group
-            Group RDPGroup{
-            Ensure = 'Present'
-            GroupName = "Remote Desktop Users"
-            Members = 'WIN2016\Administrateur'
+            Group RDPGroup
+            {
+                Ensure = 'Present'
+                GroupName = "Remote Desktop Users"
+                Members = 'WIN2016\Administrateur'
             }
 
             xComputer ComputerName
@@ -48,21 +49,21 @@ Configuration BasicConfiguration {
             {
                 AddressFamily = "IPv4"
                 InterfaceAlias = "Ethernet0"
-                IPAddress = "192.168.17.3/24"
+                IPAddress = $Node.IPAddress
             }
 
             xDNSServerAddress dnsaddress 
             {
                 AddressFamily = "IPv4"
                 InterfaceAlias = "Ethernet0"
-                Address = "192.168.17.2"
+                Address = $Node.Dnsserver
             }
 
             xDefaultGatewayAddress gatewayaddress 
             {
                 AddressFamily = "IPv4"
                 InterfaceAlias = "Ethernet0"
-                Address = "192.168.17.2"
+                Address = $Node.Gateway
             }
 
             xDHCPClient dhcpstate 
@@ -72,11 +73,6 @@ Configuration BasicConfiguration {
                 State = "Disabled"
             }
 
-
-
-
-
-
         }
 }
-BasicConfiguration
+BasicConfiguration -ConfigurationData Data.psd1
