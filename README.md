@@ -42,6 +42,26 @@ In this file I defined 4 roles :
 - DNS
 --> This role installs DNS feature, creates record etc ...
 
+If you need more information about Powershell DSC, please refer to Microsoft documentation : 
+
+https://docs.microsoft.com/en-us/powershell/dsc/overview
+
+## Prerequisite
+
+These scripts use the Local Configuration Manager reboot feature. So you need to install Powershell 5.0 : 
+https://www.microsoft.com/en-us/download/details.aspx?id=54616
+
+## How to use it ? 
+
+First create the host.psd1 file (like the example.psd1) then execute the script ActiveDirectory.ps1
+
+```
+.\ActiveDirectory.ps1
+
+```
+It will ask you two credentials : 
+- The first one is the Administrator credentials 
+- the second one is the Domain administrator (usefull to create the domain, and configure the server)
 
 If you like my work and want to know more about me : 
 * [Linkedin](https://www.linkedin.com/in/laurent-vasseur-b87b60130/)
