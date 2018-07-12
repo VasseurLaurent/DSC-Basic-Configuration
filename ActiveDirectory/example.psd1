@@ -5,15 +5,20 @@
         },
 
         @{
+            # I define my host
             NodeName = "localhost"
+            # I define which role this server has
             Role = "ActiveDirectory","DHCP", "DNS"
 #            Role = "HyperV"
+
+            # Variables related to AD role
             DomainName = "domain.com"
             Zone = "domain.com"
             RetryCount = 20
             RetryIntervalSec = 30
             PsDscAllowPlainTextPassword = $true
 
+            # Variables related to DNS role
             ARecords = @{
                 'laurent' = '192.168.22.2'
                 'thedns' = '192.168.22.100'
@@ -21,6 +26,8 @@
             CNameRecords = @{
                 'DNS' = 'thedns.domain.com'
             }
+
+            # Variables related to DHCP role
             Scopes = @(
                 @{
                     Name = 'Site A Primary';
@@ -54,6 +61,7 @@
                     AddressFamily = 'IPv4'
                 }
             )
+            #Variables related to Hyper-V role
             Vms = @(
                 @{
                     Name = 'VMtest1'

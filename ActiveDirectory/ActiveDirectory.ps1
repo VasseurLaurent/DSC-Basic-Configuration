@@ -62,7 +62,7 @@ Configuration ActiveDirectory {
                 Path = $VM.PathHddVM
                 Generation = "vhd"
                 MaximumSizeBytes = $VM.SizeHDD
-                DependsOn = "[WindowsFeature]HyperVPowershell", "[WindowsFeature]HyperV-Tools", "[WindowsFeature]HyperV" 
+                DependsOn = "[WindowsFeature]HyperVPowershell", "[WindowsFeature]HyperV-Tools", "[WindowsFeature]HyperV"
             }
 
             xVMHyperV "VM$Count"
@@ -100,12 +100,12 @@ Configuration ActiveDirectory {
             ActionAfterReboot = "ContinueConfiguration"
             ConfigurationMode = 'ApplyOnly'
             RebootNodeIfNeeded = $true
-        }        
+        }
         File ADFiles
         {
             DestinationPath = 'C:\Windows\NTDS'
             Type = 'Directory'
-            Ensure = 'Present' 
+            Ensure = 'Present'
         }
 
         WindowsFeature ADDSInstall
@@ -124,7 +124,7 @@ Configuration ActiveDirectory {
         {
             DomainName = $Node.DomainName
             DomainAdministratorCredential = $domainCred
-            SafemodeAdministratorPassword = $safemodeAdministratorCred 
+            SafemodeAdministratorPassword = $safemodeAdministratorCred
             DatabasePath = 'C:\Windows\NTDS'
             LogPath = 'C:\Windows\NTDS'
             SysvolPath = 'C:\Windows\SYSVOL'
@@ -146,7 +146,6 @@ Configuration ActiveDirectory {
             Ensure = 'Present'
             Name = 'DNS'
         }
-        
         foreach ($ARec in $Node.ARecords.keys){
             xDNSRecord $ARec
             {
@@ -241,7 +240,7 @@ ActiveDirectory -configurationData '.\host.psd1'`
 -safemodeAdministratorCred (Get-Credential -UserName '(Password Only)' `
 -Message "New Domain Safe Mode Administrator Password") `
 -domainCred (Get-Credential `
--Message "New Domain Admin Credential") 
+-Message "New Domain Admin Credential")
 
 Set-DSCLocalConfigurationManager -Path .\ActiveDirectory -Verbose
-Start-DscConfiguration -Wait -Force -Path .\ActiveDirectory -Verbose 
+Start-DscConfiguration -Wait -Force -Path .\ActiveDirectory -Verbose
