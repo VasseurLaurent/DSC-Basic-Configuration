@@ -1,2 +1,3 @@
-BasicConfiguration/BasicConfiguration
-BasicConfiguration/Data.psd1
+ActiveDirectory/ActiveDirectory/
+ActiveDirectory/host.psd1
+ActiveDirectory/prerequisite.ps1

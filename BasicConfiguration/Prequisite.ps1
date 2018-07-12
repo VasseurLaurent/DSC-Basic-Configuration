@@ -1,3 +1,0 @@
-Install-Module xRemoteDesktopAdmin
-Install-Module xNetworking
-Install-Module xComputerManagement
